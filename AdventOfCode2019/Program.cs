@@ -1,4 +1,5 @@
 ﻿using AdventOfCode2019.Solutions.DayOne;
+using AdventOfCode2019.Solutions.DayTwo;
 using System;
 
 namespace AdventOfCode2019
@@ -7,7 +8,7 @@ namespace AdventOfCode2019
     {
         static void Main(string[] args)
         {
-            var solver = new DayOneSolver();
+            var solver = new DayTwoSolver();
 
             solver.Solve();
         }
