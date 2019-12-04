@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdventOfCode2019.Solutions.DayOne;
+using System;
 
 namespace AdventOfCode2019
 {
@@ -6,7 +7,9 @@ namespace AdventOfCode2019
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var solver = new DayOneSolver();
+
+            solver.Solve();
         }
     }
 }

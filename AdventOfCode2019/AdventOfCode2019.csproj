@@ -5,4 +5,15 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Solutions\DayTwo\" />
+    <Folder Include="Solutions\DayThree\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Solutions\DayOne\DayOneInput.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
