@@ -30,19 +30,19 @@
                     break;
                 }
 
-                Execute(_memory, _programCounter);
+                Execute(_memory);
             }
 
             return _memory;
         }
 
-        private void Execute(int[] memory, int instructionPointer)
+        private void Execute(int[] memory)
         {
-            var positionOne = memory[instructionPointer + 1];
-            var positionTwo = memory[instructionPointer + 2];
-            var positionThree = memory[instructionPointer + 3];
+            var positionOne = memory[_programCounter + 1];
+            var positionTwo = memory[_programCounter + 2];
+            var positionThree = memory[_programCounter + 3];
 
-            if (memory[instructionPointer] == 1)
+            if (memory[_programCounter] == 1)
             {
                 memory[positionThree] = memory[positionOne] + memory[positionTwo];
             }
