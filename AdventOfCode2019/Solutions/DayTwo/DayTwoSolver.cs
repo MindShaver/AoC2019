@@ -26,26 +26,16 @@ namespace AdventOfCode2019.Solutions.DayTwo
             var opCodes = _input.ToArray()[0].Split(',');
             var intOpCodes = opCodes.Select(x => int.Parse(x)).ToArray();
 
-            Reset1202Program(intOpCodes);
+            var computer = new IntCodeComputer(intOpCodes);
+            var result = computer.RunProgram();
 
-            for (var i = 0; i < intOpCodes.Length; i += 4)
-            {
-                if(intOpCodes[i] == 99)
-                {
-                    break;
-                }
-
-                Execute(intOpCodes, i);
-            }
-
-            Console.WriteLine($"The solution to Part One Day Two is - {intOpCodes[0]}");
-            Console.ReadKey();
+            Console.WriteLine($"The solution to Part One Day Two is - {result[0]}");
         }
 
         public void SolvePartTwo()
         {
-            int noun = 0;
-            int verb = 0;
+            int finalNoun = 0;
+            int finalVerb = 0;
 
             var opCodes = _input.ToArray()[0].Split(',');
             var intOpCodes = opCodes.Select(x => int.Parse(x)).ToArray();
@@ -57,46 +47,21 @@ namespace AdventOfCode2019.Solutions.DayTwo
                 for(var j = 1; j < 99; j++)
                 {
                     ResetMemory(intOpCodes, memory);
-                    Reset1202Program(memory, i, j);
 
-                    for (var instructionPointer = 0; instructionPointer < memory.Length; instructionPointer += 4)
+                    var computer = new IntCodeComputer(memory, i, j);
+                    var result = computer.RunProgram();
+
+                    if(result[0] == 19690720)
                     {
-                        if (memory[instructionPointer] == 99)
-                        {
-                            break;
-                        }
-
-                        Execute(memory, instructionPointer);
-                    }
-
-                    if(memory[0] == 19690720)
-                    {
-                        noun = i;
-                        verb = j;
+                        finalNoun = i;
+                        finalVerb = j;
 
                         break;
                     }
                 }
             }
 
-            Console.WriteLine($"The solution to Part Two Day Two - What is {100 * noun + verb}?");
-            Console.ReadKey();
-        }
-
-        private void Execute(int[] memory, int instructionPointer)
-        {
-            var positionOne = memory[instructionPointer + 1];
-            var positionTwo = memory[instructionPointer + 2];
-            var positionThree = memory[instructionPointer + 3];
-
-            if (memory[instructionPointer] == 1)
-            {
-                memory[positionThree] = memory[positionOne] + memory[positionTwo];
-            }
-            else
-            {
-                memory[positionThree] = memory[positionOne] * memory[positionTwo];
-            }
+            Console.WriteLine($"The solution to Part Two Day Two - What is {100 * finalNoun + finalVerb}?");
         }
 
         private void ResetMemory(int[] instructions, int[] memory)
@@ -105,18 +70,6 @@ namespace AdventOfCode2019.Solutions.DayTwo
             {
                 memory[i] = instructions[i];
             }
-        }
-
-        private void Reset1202Program(int[] memory, int noun, int verb)
-        {
-            memory[1] = noun;
-            memory[2] = verb;
-        }
-
-        private void Reset1202Program(int[] opCodes)
-        {
-            opCodes[1] = 12;
-            opCodes[2] = 2;
         }
     }
 }

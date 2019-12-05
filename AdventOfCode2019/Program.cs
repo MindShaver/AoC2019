@@ -10,7 +10,7 @@ namespace AdventOfCode2019
     {
         static void Main(string[] args)
         {
-            var solver = new DayFourSolver();
+            var solver = new DayTwoSolver();
 
             solver.Solve();
         }

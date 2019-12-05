@@ -4,8 +4,6 @@ namespace AdventOfCode2019.Solutions.DayFour
 {
     public class DayFourSolver : ISolver
     {
-        private string _input = "231832-767346";
-
         public void Solve()
         {
             SolvePartOne();
@@ -34,8 +32,6 @@ namespace AdventOfCode2019.Solutions.DayFour
             var initalPassword = 231832;
             var maxRange = 767346;
             var counter = 0;
-
-            //IsValidExtended(111122);
 
             for (var i = initalPassword; i <= maxRange; i++)
             {
