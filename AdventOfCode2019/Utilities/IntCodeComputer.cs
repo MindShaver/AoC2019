@@ -25,33 +25,57 @@
 
             while(true)
             {
-                if (_memory[_programCounter] == 99)
+                var opCode = _memory[_programCounter] % 1000;
+                if (opCode == 99)
                 {
                     break;
                 }
 
-                Execute(_memory);
+                Execute(_memory, opCode);
             }
 
             return _memory;
         }
 
-        private void Execute(int[] memory)
+        private void Execute(int[] memory, int opCode)
         {
-            var positionOne = memory[_programCounter + 1];
-            var positionTwo = memory[_programCounter + 2];
-            var positionThree = memory[_programCounter + 3];
-
-            if (memory[_programCounter] == 1)
+            switch(opCode)
             {
-                memory[positionThree] = memory[positionOne] + memory[positionTwo];
-            }
-            else
-            {
-                memory[positionThree] = memory[positionOne] * memory[positionTwo];
-            }
+                case 1:
+                    {
+                        var positionOne = memory[_programCounter + 1];
+                        var positionTwo = memory[_programCounter + 2];
+                        var positionThree = memory[_programCounter + 3];
 
-            _programCounter += 4;
+                        memory[positionThree] = memory[positionOne] + memory[positionTwo];
+
+                        _programCounter += 4;
+                    }
+                    break;
+                case 2:
+                    {
+                        var positionOne = memory[_programCounter + 1];
+                        var positionTwo = memory[_programCounter + 2];
+                        var positionThree = memory[_programCounter + 3];
+
+                        memory[positionThree] = memory[positionOne] * memory[positionTwo];
+
+                        _programCounter += 4;
+                    }
+                    break;
+                case 3:
+                    {
+                        _programCounter += 1;
+                    }
+                    break;
+                case 4:
+                    {
+                        _programCounter += 1;
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void Reset1202Program(int[] memory, int noun, int verb)
