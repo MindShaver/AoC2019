@@ -18,6 +18,7 @@ namespace AdventOfCode2019.Solutions.DayFiveSolver
         public void Solve()
         {
             SolvePartOne();
+            SolvePartTwo();
         }
 
         public void SolvePartOne()
@@ -25,7 +26,7 @@ namespace AdventOfCode2019.Solutions.DayFiveSolver
             var splitInput = _input.ToArray()[0].Split(',');
             var memory = splitInput.Select(x => int.Parse(x)).ToArray();
 
-            var computer = new IntCodeComputer(memory);
+            var computer = new IntCodeComputer(memory, 1);
             var result = computer.RunProgram();
 
             Console.WriteLine($"The solution to Part One Day Five is above ^^^");
@@ -33,7 +34,13 @@ namespace AdventOfCode2019.Solutions.DayFiveSolver
 
         public void SolvePartTwo()
         {
-            throw new NotImplementedException();
+            var splitInput = _input.ToArray()[0].Split(',');
+            var memory = splitInput.Select(x => int.Parse(x)).ToArray();
+
+            var computer = new IntCodeComputer(memory, 5);
+            var result = computer.RunProgram();
+
+            Console.WriteLine($"The solution to Part One Day Five is above ^^^");
         }
     }
 }
