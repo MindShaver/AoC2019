@@ -10,29 +10,34 @@ namespace AdventOfCode2019.Utilities
         private int _verb = 2;
         private int[] _modes = new int[] { 0, 0, 0 };
         private int _input = 1;
+        private bool _shouldReset = false;
 
         public IntCodeComputer(int[] memory)
         {
             _memory = memory;
         }
 
-        public IntCodeComputer(int[] memory, int noun, int verb)
+        public IntCodeComputer(int[] memory, int noun, int verb, bool shouldReset)
         {
             _memory = memory;
             _noun = noun;
             _verb = verb;
+            _shouldReset = shouldReset;
         }
 
         public int[] RunProgram()
         {
-            Reset1202Program(_memory, _noun, _verb);
+            if(_shouldReset)
+                Reset1202Program(_memory, _noun, _verb);
 
             while(true)
             {
-                var opCode = _memory[_programCounter] % 1000;
-                var modeOne = Math.Floor((decimal)(_memory[_programCounter] % 100000 / 10000));
+                ResetModes();
+
+                var opCode = _memory[_programCounter] % 100;
+                var modeOne = Math.Floor((decimal)(_memory[_programCounter] % 1000 / 100));
                 var modeTwo = Math.Floor((decimal)(_memory[_programCounter] % 10000 / 1000));
-                var modeThree = Math.Floor((decimal)(_memory[_programCounter] % 1000 / 100));
+                var modeThree = Math.Floor((decimal)(_memory[_programCounter] % 100000 / 10000));
 
                 _modes[0] = (int)modeThree;
                 _modes[1] = (int)modeTwo;
@@ -47,6 +52,14 @@ namespace AdventOfCode2019.Utilities
             }
 
             return _memory;
+        }
+
+        private void ResetModes()
+        {
+            for(var i = 0; i < 3; i++)
+            {
+                _modes[i] = 0;
+            }
         }
 
         private void Execute(int[] memory, int opCode)
@@ -86,15 +99,17 @@ namespace AdventOfCode2019.Utilities
                 case 3:
                     {
                         var positionOne = memory[_programCounter + 1];
-                        var paramOne = _modes[2] == 1 ? positionOne : memory[positionOne];
 
-                        memory[_input] = paramOne;
-                        _programCounter += 1;
+                        memory[positionOne] = _input;
+                        _programCounter += 2;
                     }
                     break;
                 case 4:
                     {
-                        _programCounter += 1;
+                        var positionOne = memory[_programCounter + 1];
+                        var paramOne = _modes[2] == 1 ? positionOne : memory[positionOne];
+                        Console.WriteLine(paramOne);
+                        _programCounter += 2;
                     }
                     break;
                 default:

@@ -26,7 +26,7 @@ namespace AdventOfCode2019.Solutions.DayTwo
             var opCodes = _input.ToArray()[0].Split(',');
             var intOpCodes = opCodes.Select(x => int.Parse(x)).ToArray();
 
-            var computer = new IntCodeComputer(intOpCodes);
+            var computer = new IntCodeComputer(intOpCodes, 12, 2, true);
             var result = computer.RunProgram();
 
             Console.WriteLine($"The solution to Part One Day Two is - {result[0]}");
@@ -48,7 +48,7 @@ namespace AdventOfCode2019.Solutions.DayTwo
                 {
                     ResetMemory(intOpCodes, memory);
 
-                    var computer = new IntCodeComputer(memory, i, j);
+                    var computer = new IntCodeComputer(memory, i, j, true);
                     var result = computer.RunProgram();
 
                     if(result[0] == 19690720)
