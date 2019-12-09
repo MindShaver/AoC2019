@@ -23,7 +23,7 @@ namespace AdventOfCode2019.Solutions.DaySix
 
         public void SolvePartOne()
         {
-            var planetDict = new Dictionary<Planet, List<Planet>>();
+            var planetDict = new Dictionary<string, List<Planet>>();
 
             foreach(var i in _input)
             {
@@ -31,24 +31,34 @@ namespace AdventOfCode2019.Solutions.DaySix
                 var a = new Planet(parentChild[0]);
                 var b = new Planet(parentChild[1]);
 
-                if(!planetDict.ContainsKey(a))
+                if(!planetDict.ContainsKey(a.PlanetName))
                 {
-                    planetDict.Add(a, new List<Planet> { b });
+                    planetDict.Add(b.PlanetName, new List<Planet> { a });
                 } else
                 {
-                    planetDict[a].Add(b);
+                    planetDict[b.PlanetName].Add(a);
                 }
 
-                if(!planetDict.ContainsKey(b))
+                if(!planetDict.ContainsKey(a.PlanetName))
                 {
-                    planetDict.Add(b, new List<Planet>());
+                    planetDict.Add(a.PlanetName, new List<Planet>());
                 }
 
             }
 
-            var x = 1;
+            var count = 0;
 
+            foreach(var i in planetDict.Keys)
+            {
+                var item = planetDict[i];
 
+                foreach(var j in item)
+                {
+                    count++;
+                }
+            }
+
+            Console.WriteLine(count);
 
         }
 
